@@ -1,12 +1,9 @@
 package com.kirill.microservice.controller;
 
+import com.kirill.microservice.entity.Car;
 import com.kirill.microservice.entity.User;
 import com.kirill.microservice.service.UserService;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("user")
@@ -36,5 +33,10 @@ public class UserController {
     @DeleteMapping
     public void delete(@RequestBody User user) {
         userService.delete(user.getId());
+    }
+
+    @PostMapping("{id}")
+    public User addCar(@PathVariable("id") User user, @RequestBody Car car) {
+        return userService.addCar(user, car);
     }
 }

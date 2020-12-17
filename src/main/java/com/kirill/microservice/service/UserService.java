@@ -1,12 +1,14 @@
 package com.kirill.microservice.service;
 
+import com.kirill.microservice.entity.Car;
 import com.kirill.microservice.entity.User;
 import com.kirill.microservice.repo.UserRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepo userRepo;
@@ -23,7 +25,9 @@ public class UserService {
     }
 
     public User get(Long id) {
-        return userRepo.findById(id).get();
+        User found = userRepo.findById(id).get();
+        found.getCars();
+        return found;
     }
 
     public User update(Long id, User user) {
@@ -37,6 +41,11 @@ public class UserService {
 
     public void delete(User user) {
         userRepo.delete(user);
+    }
+
+    public User addCar(User user, Car car) {
+        user.addCar(car);
+        return userRepo.save(user);
     }
 
 }

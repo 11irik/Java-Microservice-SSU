@@ -4,23 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "usr")
+@Table
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
-public class User implements Serializable {
+public class Car {
 
-    @ManyToMany(targetEntity = Car.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private final Set<Car> cars = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    private String brand;
+
+    @ManyToMany(targetEntity = User.class, mappedBy = "cars", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -30,19 +31,19 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public Set<Car> getCars() {
-        return cars;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void addCar(Car car) {
-        cars.add(car);
+    public void addUser(User user) {
+        users.add(user);
     }
 }
