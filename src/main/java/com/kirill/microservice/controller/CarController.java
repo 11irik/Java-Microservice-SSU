@@ -4,6 +4,8 @@ import com.kirill.microservice.entity.Car;
 import com.kirill.microservice.service.CarService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("car")
 public class CarController {
@@ -15,12 +17,17 @@ public class CarController {
 
     @PostMapping
     public Car create(@RequestBody Car car) {
-        return carService.create(car.getBrand());
+        return carService.create(car);
     }
 
     @GetMapping("{id}")
     public Car get(@PathVariable("id") Long id) {
         return carService.get(id);
+    }
+
+    @GetMapping
+    public List<Car> getAll() {
+        return carService.getAll();
     }
 
     @PutMapping("{id}")

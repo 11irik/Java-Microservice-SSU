@@ -5,6 +5,8 @@ import com.kirill.microservice.entity.User;
 import com.kirill.microservice.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -17,12 +19,17 @@ public class UserController {
 
     @PostMapping
     public User create(@RequestBody User user) {
-        return userService.create(user.getName());
+        return userService.create(user);
     }
 
     @GetMapping("{id}")
     public User get(@PathVariable("id") Long id) {
         return userService.get(id);
+    }
+
+    @GetMapping()
+    public List<User> getAll() {
+        return userService.getAll();
     }
 
     @PutMapping("{id}")
@@ -37,6 +44,11 @@ public class UserController {
 
     @PostMapping("{id}")
     public User addCar(@PathVariable("id") User user, @RequestBody Car car) {
+        return userService.addCar(user, car);
+    }
+
+    @DeleteMapping("{id}")
+    public User deleteCar(@PathVariable("id") User user, @RequestBody Car car) {
         return userService.addCar(user, car);
     }
 }

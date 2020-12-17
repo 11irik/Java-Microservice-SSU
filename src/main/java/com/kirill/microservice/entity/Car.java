@@ -21,7 +21,7 @@ public class Car {
     private String brand;
 
     @ManyToMany(targetEntity = User.class, mappedBy = "cars", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
     public Long getId() {
         return id;

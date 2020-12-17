@@ -15,12 +15,14 @@ import java.util.Set;
         property = "id")
 public class User implements Serializable {
 
-    @ManyToMany(targetEntity = Car.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private final Set<Car> cars = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @ManyToMany(targetEntity = Car.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Car> cars;
 
     public Long getId() {
         return id;
@@ -44,5 +46,9 @@ public class User implements Serializable {
 
     public void addCar(Car car) {
         cars.add(car);
+    }
+
+    public void deleteCar(Car car) {
+        cars.remove(car);
     }
 }

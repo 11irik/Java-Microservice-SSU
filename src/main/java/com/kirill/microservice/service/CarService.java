@@ -4,6 +4,8 @@ import com.kirill.microservice.entity.Car;
 import com.kirill.microservice.repo.CarRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService {
 
@@ -13,15 +15,20 @@ public class CarService {
         this.carRepo = carRepo;
     }
 
-    public Car create(String brand) {
-        Car car = new Car();
-        car.setBrand(brand);
-
-        return carRepo.save(car);
+    public Car create(Car car) {
+        if (car.getBrand() == null || "".equals(car.getBrand())) {
+            throw new IllegalArgumentException();
+        } else {
+            return carRepo.save(car);
+        }
     }
 
     public Car get(Long id) {
         return carRepo.findById(id).get();
+    }
+
+    public List<Car> getAll() {
+        return carRepo.findAll();
     }
 
     public Car update(Long id, Car car) {
