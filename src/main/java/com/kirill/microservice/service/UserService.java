@@ -26,7 +26,9 @@ public class UserService {
         if (user.getName() == null || "".equals(user.getName())) {
             throw new IllegalArgumentException();
         } else {
-            return userRepo.save(user);
+            User newUser = new User();
+            newUser.setName(user.getName());
+            return userRepo.save(newUser);
         }
     }
 
@@ -41,8 +43,9 @@ public class UserService {
     }
 
     public User update(Long id, User user) {
-        user.setId(id);
-        return userRepo.save(user);
+        User found = userRepo.getOne(id);
+        found.setName(user.getName());
+        return userRepo.save(found);
     }
 
     public void delete(Long id) {
@@ -54,13 +57,14 @@ public class UserService {
     }
 
     public User addCar(User user, Car car) {
-        Car found = carRepo.getOne(car.getId());
-        user.addCar(found);
+        Car foundCar = carRepo.getOne(car.getId());
+        user.addCar(foundCar);
         return userRepo.save(user);
     }
 
     public User deleteCar(User user, Car car) {
-        user.deleteCar(car);
+        Car foundCar = carRepo.getOne(car.getId());
+        user.deleteCar(foundCar);
         return userRepo.save(user);
     }
 

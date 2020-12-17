@@ -19,12 +19,16 @@ public class CarService {
         if (car.getBrand() == null || "".equals(car.getBrand())) {
             throw new IllegalArgumentException();
         } else {
-            return carRepo.save(car);
+            Car newCar = new Car();
+            newCar.setBrand(car.getBrand());
+            return carRepo.save(newCar);
         }
     }
 
     public Car get(Long id) {
-        return carRepo.findById(id).get();
+        Car found = carRepo.getOne(id);
+        found.getUsers();
+        return found;
     }
 
     public List<Car> getAll() {
@@ -32,8 +36,9 @@ public class CarService {
     }
 
     public Car update(Long id, Car car) {
-        car.setId(id);
-        return carRepo.save(car);
+        Car found = carRepo.getOne(id);
+        found.setBrand(car.getBrand());
+        return carRepo.save(found);
     }
 
     public void delete(Long id) {

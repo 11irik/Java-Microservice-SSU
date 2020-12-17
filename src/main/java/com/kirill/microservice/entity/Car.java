@@ -5,14 +5,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Car {
 
     @JsonView({Views.Id.class})
@@ -25,7 +22,7 @@ public class Car {
 
     @JsonView({Views.Full.class})
     @ManyToMany(targetEntity = User.class, mappedBy = "cars", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User> users;
+    private List<User> users;
 
     public Long getId() {
         return id;
@@ -43,11 +40,7 @@ public class Car {
         this.brand = brand;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
     }
 }

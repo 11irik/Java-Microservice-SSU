@@ -53,6 +53,6 @@ public class UserController {
 
     @DeleteMapping("{id}")
     public User deleteCar(@PathVariable("id") User user, @RequestBody Car car) {
-        return userService.addCar(user, car);
+        return userService.deleteCar(user, car);
     }
 }
