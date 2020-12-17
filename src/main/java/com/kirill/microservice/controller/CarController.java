@@ -18,6 +18,7 @@ public class CarController {
         this.carService = carService;
     }
 
+    @JsonView(Views.IdName.class)
     @PostMapping
     public Car create(@RequestBody Car car) {
         return carService.create(car);
@@ -35,6 +36,7 @@ public class CarController {
         return carService.getAll();
     }
 
+    @JsonView(Views.IdName.class)
     @PutMapping("{id}")
     public Car update(@PathVariable("id") Long id, @RequestBody Car car) {
         return carService.update(id, car);

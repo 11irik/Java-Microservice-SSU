@@ -19,6 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @JsonView(Views.IdName.class)
     @PostMapping
     public User create(@RequestBody User user) {
         return userService.create(user);
@@ -47,11 +48,13 @@ public class UserController {
         userService.delete(user.getId());
     }
 
+    @JsonView(Views.Full.class)
     @PostMapping("{id}")
     public User addCar(@PathVariable("id") User user, @RequestBody Car car) {
         return userService.addCar(user, car);
     }
 
+    @JsonView(Views.Full.class)
     @DeleteMapping("{id}")
     public User deleteCar(@PathVariable("id") User user, @RequestBody Car car) {
         return userService.deleteCar(user, car);
