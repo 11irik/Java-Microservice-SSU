@@ -1,6 +1,8 @@
 package com.kirill.microservice.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kirill.microservice.entity.Car;
+import com.kirill.microservice.entity.Views;
 import com.kirill.microservice.service.CarService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +22,13 @@ public class CarController {
         return carService.create(car);
     }
 
+    @JsonView(Views.Full.class)
     @GetMapping("{id}")
     public Car get(@PathVariable("id") Long id) {
         return carService.get(id);
     }
 
+    @JsonView(Views.IdName.class)
     @GetMapping
     public List<Car> getAll() {
         return carService.getAll();

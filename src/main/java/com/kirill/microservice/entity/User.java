@@ -1,6 +1,7 @@
 package com.kirill.microservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -15,12 +16,15 @@ import java.util.Set;
         property = "id")
 public class User implements Serializable {
 
+    @JsonView({Views.Id.class})
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonView({Views.IdName.class})
     private String name;
 
+    @JsonView({Views.Full.class})
     @ManyToMany(targetEntity = Car.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Car> cars;
 
