@@ -21,7 +21,7 @@ public class Car {
     private String brand;
 
     @JsonView({Views.Full.class})
-    @ManyToMany(targetEntity = User.class, mappedBy = "cars", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = User.class, mappedBy = "cars", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Long getId() {

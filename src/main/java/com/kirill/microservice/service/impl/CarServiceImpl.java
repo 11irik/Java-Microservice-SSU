@@ -43,9 +43,13 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car update(Long id, Car car) {
-        Car found = carRepo.getOne(id);
-        found.setBrand(car.getBrand());
-        return carRepo.save(found);
+        if (car.getBrand() == null || "".equals(car.getBrand())) {
+            throw new IllegalArgumentException();
+        } else {
+            Car found = carRepo.getOne(id);
+            found.setBrand(car.getBrand());
+            return found;
+        }
     }
 
     @Override

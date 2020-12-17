@@ -22,7 +22,7 @@ public class User implements Serializable {
     private String name;
 
     @JsonView({Views.Full.class})
-    @ManyToMany(targetEntity = Car.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Car.class, fetch = FetchType.LAZY)
     private List<Car> cars;
 
     public Long getId() {

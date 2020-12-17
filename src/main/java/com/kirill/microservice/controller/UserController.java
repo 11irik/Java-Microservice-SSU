@@ -36,6 +36,7 @@ public class UserController {
         return userService.getAll();
     }
 
+    @JsonView(Views.IdName.class)
     @PutMapping("{id}")
     public User update(@PathVariable("id") Long id, @RequestBody User user) {
         return userService.update(id, user);

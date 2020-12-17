@@ -5,6 +5,7 @@ import com.kirill.microservice.entity.User;
 import com.kirill.microservice.repo.CarRepo;
 import com.kirill.microservice.repo.UserRepo;
 import com.kirill.microservice.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
@@ -48,9 +50,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(Long id, User user) {
-        User found = userRepo.getOne(id);
-        found.setName(user.getName());
-        return userRepo.save(found);
+        if (user.getName() == null || "".equals(user.getName())) {
+            throw new IllegalArgumentException();
+        } else {
+            User found = userRepo.getOne(id);
+            found.setName(user.getName());
+            return found;
+        }
     }
 
     @Override
@@ -67,14 +73,14 @@ public class UserServiceImpl implements UserService {
     public User addCar(User user, Car car) {
         Car foundCar = carRepo.getOne(car.getId());
         user.addCar(foundCar);
-        return userRepo.save(user);
+        return user;
     }
 
     @Override
     public User deleteCar(User user, Car car) {
         Car foundCar = carRepo.getOne(car.getId());
         user.deleteCar(foundCar);
-        return userRepo.save(user);
+        return user;
     }
 
 }
