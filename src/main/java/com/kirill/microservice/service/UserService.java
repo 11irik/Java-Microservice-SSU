@@ -2,70 +2,23 @@ package com.kirill.microservice.service;
 
 import com.kirill.microservice.entity.Car;
 import com.kirill.microservice.entity.User;
-import com.kirill.microservice.repo.CarRepo;
-import com.kirill.microservice.repo.UserRepo;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class UserService {
+public interface UserService {
+    User create(User user);
 
-    private final UserRepo userRepo;
+    User get(Long id);
 
-    private final CarRepo carRepo;
+    List<User> getAll();
 
-    public UserService(UserRepo userRepo, CarRepo carRepo) {
-        this.userRepo = userRepo;
-        this.carRepo = carRepo;
-    }
+    User update(Long id, User user);
 
-    public User create(User user) {
-        if (user.getName() == null || "".equals(user.getName())) {
-            throw new IllegalArgumentException();
-        } else {
-            User newUser = new User();
-            newUser.setName(user.getName());
-            return userRepo.save(newUser);
-        }
-    }
+    void delete(Long id);
 
-    public User get(Long id) {
-        User found = userRepo.findById(id).get();
-        found.getCars();
-        return found;
-    }
+    void delete(User user);
 
-    public List<User> getAll() {
-        return userRepo.findAll();
-    }
+    User addCar(User user, Car car);
 
-    public User update(Long id, User user) {
-        User found = userRepo.getOne(id);
-        found.setName(user.getName());
-        return userRepo.save(found);
-    }
-
-    public void delete(Long id) {
-        userRepo.deleteById(id);
-    }
-
-    public void delete(User user) {
-        userRepo.delete(user);
-    }
-
-    public User addCar(User user, Car car) {
-        Car foundCar = carRepo.getOne(car.getId());
-        user.addCar(foundCar);
-        return userRepo.save(user);
-    }
-
-    public User deleteCar(User user, Car car) {
-        Car foundCar = carRepo.getOne(car.getId());
-        user.deleteCar(foundCar);
-        return userRepo.save(user);
-    }
-
+    User deleteCar(User user, Car car);
 }

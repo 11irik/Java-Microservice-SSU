@@ -1,9 +1,5 @@
 package com.kirill.microservice;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kirill.microservice.entity.Car;
-import com.kirill.microservice.entity.User;
 import com.kirill.microservice.service.CarService;
 import com.kirill.microservice.service.UserService;
 import org.junit.jupiter.api.Test;
