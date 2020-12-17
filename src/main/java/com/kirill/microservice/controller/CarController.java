@@ -46,4 +46,10 @@ public class CarController {
     public void delete(@RequestBody Car car) {
         carService.delete(car.getId());
     }
+
+    @JsonView(Views.Full.class)
+    @GetMapping("custom")
+    public List<Car> customReq() {
+        return carService.customReq("abc");
+    }
 }

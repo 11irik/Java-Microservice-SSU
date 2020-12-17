@@ -16,4 +16,6 @@ public interface CarService {
     void delete(Long id);
 
     void delete(Car car);
+
+    List<Car> customReq(String name);
 }

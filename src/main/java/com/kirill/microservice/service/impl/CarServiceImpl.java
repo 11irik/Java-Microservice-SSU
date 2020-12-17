@@ -61,4 +61,9 @@ public class CarServiceImpl implements CarService {
     public void delete(Car car) {
         carRepo.delete(car);
     }
+
+    @Override
+    public List<Car> customReq(String name) {
+        return carRepo.custom(name);
+    }
 }
